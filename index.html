@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Feedback Archetype Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15201c;
+  --paper:#f4f1e8;
+  --paper-2:#ebe6d6;
+  --moss:#2f5d50;
+  --moss-soft:#dfe9e3;
+  --clay:#c45a3b;
+  --clay-soft:#f0d9cf;
+  --gold:#c9a24b;
+  --line:#cfc8b4;
+  --shadow:rgba(21,32,28,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Spline Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background-image:radial-gradient(circle at 12% 8%,rgba(47,93,80,.06),transparent 42%),radial-gradient(circle at 88% 92%,rgba(196,90,59,.06),transparent 45%);
+}
+.wrap{max-width:560px;margin:0 auto;padding:22px 20px 60px}
+
+/* header */
+.head{padding:14px 0 22px}
+.kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--moss);font-weight:600;display:flex;align-items:center;gap:8px}
+.kicker::before{content:"";width:22px;height:1.5px;background:var(--gold)}
+h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(30px,9vw,40px);line-height:1.02;margin:12px 0 10px;letter-spacing:-.01em}
+.lede{font-size:14.5px;color:#46544d;max-width:42ch}
+.scalehint{margin-top:16px;font-size:12.5px;color:#5d6a62;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.scalehint b{color:var(--ink);font-weight:600}
+
+/* progress */
+.progress-bar{position:sticky;top:0;z-index:40;background:var(--paper);padding:10px 0 8px;margin:0 -20px 4px;padding-left:20px;padding-right:20px;border-bottom:1px solid var(--line)}
+.progress-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--moss);font-weight:600;margin-bottom:7px;letter-spacing:.02em}
+.track{height:5px;background:var(--paper-2);border-radius:6px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--moss),var(--gold));border-radius:6px;transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+/* question card */
+.q{background:#fffdf6;border:1px solid var(--line);border-radius:16px;padding:17px 16px 15px;margin-top:14px;box-shadow:0 1px 0 var(--shadow);position:relative;overflow:hidden}
+.q::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--moss-soft);transition:background .3s}
+.q.answered::before{background:var(--moss)}
+.qnum{font-family:'Fraunces',serif;font-size:12px;color:var(--gold);font-weight:600;letter-spacing:.04em}
+.qtext{font-size:15.5px;font-weight:500;margin:5px 0 16px;line-height:1.35}
+
+/* circle scale (Truity-style) */
+.scale{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 2px 4px}
+.scale .anchor{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:#7a8077;flex:0 0 auto;white-space:nowrap}
+.scale .anchor.left{color:var(--clay)}
+.scale .anchor.right{color:var(--moss)}
+.circles{display:flex;align-items:center;justify-content:center;gap:11px;flex:1 1 auto}
+.circle{appearance:none;background:transparent;cursor:pointer;border-radius:50%;padding:0;flex:0 0 auto;transition:transform .12s,background .15s,border-color .15s,box-shadow .15s;font-family:inherit;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+/* graduated sizes: ends large, middle small */
+.circle.s0{width:32px;height:32px;border:2px solid var(--clay)}
+.circle.s1{width:26px;height:26px;border:2px solid #d28b76}
+.circle.s2{width:19px;height:19px;border:2px solid #b9b3a0}
+.circle.s3{width:26px;height:26px;border:2px solid #6a9a8b}
+.circle.s4{width:32px;height:32px;border:2px solid var(--moss)}
+.circle:active{transform:scale(.88)}
+.circle[aria-pressed="true"].s0,.circle[aria-pressed="true"].s1{background:var(--clay);border-color:var(--clay);box-shadow:0 0 0 3px var(--clay-soft)}
+.circle[aria-pressed="true"].s2{background:#8a8576;border-color:#8a8576;box-shadow:0 0 0 3px var(--paper-2)}
+.circle[aria-pressed="true"].s3,.circle[aria-pressed="true"].s4{background:var(--moss);border-color:var(--moss);box-shadow:0 0 0 3px var(--moss-soft)}
+@media(max-width:380px){.circles{gap:7px}.scale .anchor{font-size:9.5px}.circle.s0,.circle.s4{width:28px;height:28px}.circle.s1,.circle.s3{width:23px;height:23px}.circle.s2{width:17px;height:17px}}
+
+/* submit */
+.submit-zone{margin-top:26px;text-align:center}
+.btn{font-family:'Spline Sans',sans-serif;font-weight:600;font-size:15px;border:none;border-radius:14px;padding:15px 30px;cursor:pointer;transition:transform .12s,box-shadow .2s,opacity .2s;letter-spacing:.01em}
+.btn-primary{background:var(--clay);color:#fff;box-shadow:0 6px 18px rgba(196,90,59,.28);width:100%}
+.btn-primary:active{transform:translateY(1px)}
+.btn-primary:disabled{background:var(--paper-2);color:#a39d8c;box-shadow:none;cursor:not-allowed}
+.miss{font-size:12.5px;color:var(--clay);margin-top:11px;min-height:16px;font-weight:500}
+
+/* results */
+.results{display:none}
+.results.show{display:block;animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.res-head{text-align:center;padding:10px 0 4px}
+.res-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
+
+.card{border-radius:18px;padding:22px 20px;margin-top:16px;position:relative;overflow:hidden}
+.card-primary{background:var(--moss);color:#f4f1e8}
+.card-shadow{background:#fffdf6;border:1px solid var(--line);color:var(--ink)}
+.card .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:.85}
+.card-primary .tag{color:var(--gold)}
+.card-shadow .tag{color:var(--clay)}
+.card h2{font-family:'Fraunces',serif;font-weight:600;font-size:30px;line-height:1.04;margin:7px 0 3px;letter-spacing:-.01em}
+.pct{font-family:'Fraunces',serif;font-size:13px;opacity:.8;margin-bottom:12px;display:block}
+.card p{font-size:14px;line-height:1.5}
+.card-primary p{color:#e4ece8}
+.card .pf{margin-top:13px;padding-top:13px;border-top:1px solid rgba(255,255,255,.18);font-size:13.5px}
+.card-shadow .pf{border-top-color:var(--line)}
+.card .pf b{font-weight:600}
+.card-primary .pf b{color:#fff}
+.card-shadow .pf b{color:var(--clay)}
+.card .tell{font-size:12.5px;font-style:italic;opacity:.82;margin-top:6px}
+
+.connect{text-align:center;font-size:13px;color:#5d6a62;margin:18px 6px 4px;line-height:1.5}
+
+/* disclosure */
+details{margin-top:22px;border-top:1px solid var(--line);padding-top:6px}
+summary{list-style:none;cursor:pointer;padding:14px 2px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:14.5px;color:var(--moss)}
+summary::-webkit-details-marker{display:none}
+summary .chev{transition:transform .25s;font-size:18px;color:var(--gold)}
+details[open] summary .chev{transform:rotate(180deg)}
+.full-intro{font-size:12.5px;color:#5d6a62;margin:2px 2px 8px}
+.bar-row{margin-top:13px}
+.bar-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:5px}
+.bar-name{font-family:'Fraunces',serif;font-weight:600;font-size:15px}
+.bar-name .sh{font-family:'Spline Sans',sans-serif;font-weight:400;font-size:11.5px;color:#8a8576;letter-spacing:.01em}
+.bar-val{font-family:'Fraunces',serif;font-size:12px;color:var(--moss);font-weight:600}
+.bar-track{height:9px;background:var(--paper-2);border-radius:6px;overflow:hidden;display:flex}
+.bar-fwd{height:100%;background:linear-gradient(90deg,var(--moss),#4d8472);transition:width .8s cubic-bezier(.4,0,.2,1)}
+.bar-shadow-seg{height:100%;background:var(--clay-soft)}
+/* deep-dive archetype cards inside Read more */
+.dd{border:1px solid var(--line);border-radius:14px;background:#fffdf6;margin-top:12px;overflow:hidden}
+.dd>summary{padding:14px 15px;gap:10px;align-items:flex-start}
+.dd>summary .dd-head{flex:1 1 auto;min-width:0}
+.dd>summary .dd-name{font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--ink);display:block}
+.dd>summary .dd-vs{font-family:'Spline Sans',sans-serif;font-weight:400;font-size:11.5px;color:#8a8576;letter-spacing:.01em}
+.dd>summary .dd-pct{font-family:'Fraunces',serif;font-size:12px;color:var(--moss);font-weight:600;flex:0 0 auto;white-space:nowrap}
+.dd>summary .chev{flex:0 0 auto;align-self:center}
+.dd .dd-bartrack{height:7px;background:var(--paper-2);border-radius:6px;overflow:hidden;display:flex;margin:9px 15px 2px}
+.dd .dd-bar-fwd{height:100%;background:linear-gradient(90deg,var(--moss),#4d8472);transition:width .8s cubic-bezier(.4,0,.2,1)}
+.dd .dd-bar-shadow{height:100%;background:var(--clay-soft)}
+.dd .dd-body{padding:4px 15px 16px;font-size:13px;line-height:1.55;color:#3c4a44}
+.dd .dd-block{margin-top:13px}
+.dd .dd-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.dd .dd-label.fwd{color:var(--moss)}
+.dd .dd-label.shd{color:var(--clay)}
+.dd .dd-label::after{content:"";flex:1 1 auto;height:1px;background:var(--line)}
+.dd .dd-sub{font-weight:600;color:var(--ink);font-style:normal}
+.dd .dd-tell{font-style:italic;color:#5d6a62;margin-top:6px;font-size:12.5px}
+.dd .dd-pf{margin-top:8px;font-size:12.5px}
+.dd .dd-pf b{font-weight:600;color:var(--ink)}
+.bar-legend{display:flex;gap:16px;font-size:11px;color:#7a8077;margin-top:16px;justify-content:center}
+.bar-legend span{display:flex;align-items:center;gap:5px}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+.dot-f{background:var(--moss)}
+.dot-s{background:var(--clay-soft);border:1px solid var(--clay)}
+
+.restart{margin-top:26px;text-align:center}
+.restart button{background:none;border:1px solid var(--line);color:#5d6a62;font-family:inherit;font-size:13px;padding:11px 22px;border-radius:11px;cursor:pointer;font-weight:500}
+.foot{text-align:center;font-size:11px;color:#9a9482;margin-top:30px;letter-spacing:.02em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ASSESSMENT -->
+  <div id="assessment">
+    <header class="head">
+      <div class="kicker">Feedback styles</div>
+      <h1>Which feedback archetype are you?</h1>
+      <p class="lede">A quick read on how you tend to show up when giving feedback, where you bring real value, and where you might lean too hard under pressure.</p>
+      <div class="scalehint">There are no right answers — each statement is a real tension. <b>Pick the circle closest to where you honestly land between disagree and agree.</b></div>
+    </header>
+
+    <div class="progress-bar">
+      <div class="progress-row"><span id="ptext">0 of 15 answered</span><span id="ppct">0%</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+
+    <div id="questions"></div>
+
+    <div class="submit-zone">
+      <button class="btn btn-primary" id="seeResults" disabled>See my archetype</button>
+      <div class="miss" id="miss"></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="res-head">
+      <div class="res-kicker">Your results</div>
+    </div>
+
+    <div class="card card-primary">
+      <div class="tag">Primary style</div>
+      <h2 id="primaryName"></h2>
+      <span class="pct" id="primaryPct"></span>
+      <p id="primaryDesc"></p>
+      <div class="pf"><b>Lean into it:</b> <span id="primaryGrowth"></span></div>
+    </div>
+
+    <div class="card card-shadow">
+      <div class="tag">Watch for · under pressure</div>
+      <h2 id="shadowName"></h2>
+      <span class="pct" id="shadowPct"></span>
+      <p id="shadowDesc"></p>
+      <div class="tell" id="shadowTell"></div>
+      <div class="pf"><b>Path forward:</b> <span id="shadowPath"></span></div>
+    </div>
+
+    <p class="connect">None of us is just one archetype. The strongest feedback-givers balance all of them against what a project needs in the moment.</p>
+
+    <details id="breakdown">
+      <summary><span>Read more · deep dive on all six</span><span class="chev">⌄</span></summary>
+      <p class="full-intro">Every archetype is a real strength — and each one has a flip side that can emerge when that strength runs too hot. Tap any archetype to read the full profile. They’re ordered by how strongly each one showed up for you.</p>
+      <div id="allBars"></div>
+      <div class="bar-legend">
+        <span><span class="dot dot-f"></span>Your strength</span>
+        <span><span class="dot dot-s"></span>Flip side</span>
+      </div>
+    </details>
+
+    <div class="restart">
+      <button onclick="restart()">Start over</button>
+    </div>
+  </div>
+
+  <div class="foot">Epic · UXD TL feedback session</div>
+</div>
+
+<script>
+// ---- archetype content (from source framework) ----
+// desc/sdesc = short copy for result cards. full/sfull = deep-dive copy for "Read more".
+const AX = {
+  enc:{name:"The Encourager", shadow:"The Bystander",
+    desc:"You build momentum and psychological safety. You instinctively name what's working and recognize emerging strengths, which helps teams keep iterating instead of fixating on flaws.",
+    full:"Encouragers build momentum, confidence, and psychological safety in feedback conversations. They instinctively highlight what\u2019s working and recognize emerging strengths in ideas and in people. Their presence helps teams feel motivated to keep iterating instead of fixating on flaws. Encouragers are especially powerful in early-stage work, where positive reinforcement helps others take creative risks. Their challenge is learning to balance affirmation with direct feedback so their support doesn\u2019t accidentally dilute clarity or hide important critique.",
+    growth:"Balance affirmation with directness so your support sharpens clarity rather than softening it away.",
+    sdesc:"When the Encourager runs too quiet, the Bystander appears: holding back thoughts or concerns, often to avoid disrupting, sometimes because you're unsure where you land.",
+    sfull:"The Bystander tends to hold back thoughts or concerns, often out of a desire not to disrupt, dominate, or misstep. This can make others assume they agree with the direction when, internally, they may feel unsure. Under stress, Bystanders may withdraw or \u201cgo quiet,\u201d which can unintentionally slow alignment or hide valuable feedback that others need.",
+    tell:"Telltale sign: you go quiet or second-guess yourself.",
+    path:"Share one thought even if it feels incomplete. Offer presence rather than perfection."},
+  con:{name:"The Connector", shadow:"The Monopolizer",
+    desc:"You link individual work to broader goals, strategy, and cross-functional dependencies. You help teams see where a piece sits in the larger system and keep feedback aligned to shared priorities.",
+    full:"Connectors naturally link individual contributions to broader goals, strategies, or cross-functional considerations. They help teams zoom out and understand where the work sits within a larger system, and they ensure feedback conversations stay aligned with shared priorities. Connectors excel at bringing in perspectives from different stakeholders and helping unify them into a cohesive direction. Their opportunity is to avoid over-framing or unintentionally steering conversations too heavily toward the \u201cbig picture\u201d when the team needs to make focused, tactical progress.",
+    growth:"Make your big-picture connection, then hand it off so the team makes those links too instead of only following yours.",
+    sdesc:"When the Connector takes too much space, the Monopolizer appears: dominating the conversation because you see the big picture clearly and want to be sure no one misses it.",
+    sfull:"The Monopolizer takes up a disproportionate amount of space in group conversations, often because they see the big picture clearly and want to ensure the group doesn\u2019t miss something important. Under pressure, their contributions can overshadow others, making it harder for quieter voices to enter the conversation.",
+    tell:"Telltale sign: you feel urgency to explain or take the floor.",
+    path:"Use influence to draw others in rather than shape the conversation alone. Ask one person, \u201cwhat's your take?\u201d"},
+  cla:{name:"The Clarifier", shadow:"The Fog",
+    desc:"You reduce ambiguity with targeted questions that surface assumptions and intent. You help teams articulate what they're really aiming for and what problem is actually being solved.",
+    full:"Clarifiers reduce ambiguity by asking thoughtful, targeted questions that surface assumptions and intentions. They help teams articulate what they\u2019re really aiming for, what constraints matter, and what problem is actually being solved. Clarifiers are invaluable when projects feel fuzzy, misaligned, or overly complex \u2014 they bring structure without shutting down creativity. Their growth area is recognizing when their questions can inadvertently stall momentum or make others feel interrogated, and balancing inquiry with encouragement.",
+    growth:"Notice when questioning stalls momentum, and balance inquiry with encouragement.",
+    sdesc:"When clarity slips, the Fog appears: feedback becomes vague, abstract, or so high-level that others aren't sure what to do with it.",
+    sfull:"The Fog emerges when someone\u2019s feedback becomes vague, abstract, or overly high-level, leaving others unsure what to take away. This may come from uncertainty, overload, or thinking faster than they can articulate. In stressful moments, Fog feedback can unintentionally confuse rather than clarify.",
+    tell:"Telltale sign: your thoughts feel jumbled or too big-picture.",
+    path:"Slow down, ground feedback in specific examples, and check for shared understanding before moving on."},
+  edg:{name:"The Challenger", shadow:"The Disruptor",
+    desc:"You stretch ideas past the obvious, inviting teams toward bolder possibilities and questioning long-held assumptions. You unlock innovation by refusing to settle for incremental.",
+    full:"Challengers stretch ideas beyond the obvious, inviting teams to explore bolder possibilities or question long-held assumptions. They energize conversations by challenging thinking in productive, future-oriented ways. Challengers often unlock innovation by refusing to settle for incrementalism. Their growth area is learning to modulate the intensity of their challenge so it continues to feel inspiring rather than destabilizing, and ensuring that their ambition remains grounded in team alignment rather than personal vision.",
+    growth:"Modulate the intensity of your challenge so it inspires rather than destabilizes, and keep it grounded in team alignment, not personal vision.",
+    sdesc:"When the push turns into friction, the Disruptor appears: the challenge can feel abrupt or dismissive, and honest feedback lands as a rejection of existing work.",
+    sfull:"The Disruptor challenges ideas in ways that create friction rather than momentum. Their intent may be to strengthen the work, but the approach can feel abrupt, dismissive, or destabilizing. Under stress, their honesty becomes sharpness, and their push for better ideas can feel like a rejection of existing work.",
+    tell:"Telltale sign: your challenge sharpens into criticism.",
+    path:"Channel challenge through curiosity so the push feels invitational. Start with \u201cwhat if we explored\u2026?\u201d"},
+  syn:{name:"The Synthesizer", shadow:"The Tour Guide",
+    desc:"You take fragmented, complex conversations and turn them into focused clarity. You spot themes and patterns across perspectives and help teams prioritize and move forward.",
+    full:"Synthesizers take complex, fragmented conversations and turn them into focused clarity. They naturally spot themes, patterns, and emerging insights across different perspectives. Their ability to \u201cconnect the dots\u201d helps teams prioritize, make decisions, and move forward. Synthesizers are particularly valuable in cross-disciplinary groups or messy problem spaces. Their growth edge is resisting the urge to over-interpret or compress ideas too early \u2014 sometimes letting ambiguity breathe is necessary for breakthrough thinking.",
+    growth:"Resist compressing ideas too early; sometimes ambiguity needs room to breathe before the breakthrough.",
+    sdesc:"When context-setting takes over, the Tour Guide appears: over-explaining background and process instead of offering actionable feedback, which weighs the conversation down.",
+    sfull:"The Tour Guide over-explains context, history, or process instead of offering actionable feedback. This often comes from wanting others to fully understand the background, but under stress it can weigh conversations down and make it harder to move forward.",
+    tell:"Telltale sign: you feel compelled to give lots of context.",
+    path:"Distill instead of narrate. Share only the context that elevates clarity."},
+  usr:{name:"The User Proxy", shadow:"The Director",
+    desc:"You anchor feedback in real user needs and the actual problems people face. You bring empathy into the room and keep the team honest about whether a solution solves the right problem.",
+    full:"User Proxies anchor feedback in real-world needs, lived experiences, and the actual problems that users or customers face. They naturally bring empathy and impact-thinking into the room, ensuring that work isn\u2019t just polished or clever, but meaningful. User Proxies help the team stay honest about whether solutions are solving the right problem. Their growth edge is avoiding over-indexing on user considerations in moments where strategic, technical, or organizational constraints also need equal weight.",
+    growth:"Avoid over-indexing on user considerations in moments where strategic, technical, or organizational constraints need equal weight.",
+    sdesc:"When expertise outruns exploration, the Director appears: prescribing solutions quickly and skipping the exploration phase, which can limit others' creativity or ownership.",
+    sfull:"The Director tends to prescribe solutions quickly, often skipping over the exploration phase. This may come from expertise, decisiveness, or a desire to be helpful, but under pressure can limit others\u2019 creativity or ownership.",
+    tell:"Telltale sign: you jump into solutions before hearing intent.",
+    path:"Pause to ask questions, listen to the intent behind the work, and co-create. Ask \u201cwhat are you hoping this achieves?\u201d"}
+};
+
+// ---- 15 questions. polarity '+' = forward strength, '-' = reverse-scored ----
+// 3 questions each for the three talk-focus axes (con, edg, usr); 2 each for the rest.
+const QUESTIONS = [
+  // enc (vs Challenger) \u2014 Agree = leans Encourager
+  {t:"I\u2019d rather a session end with the team feeling encouraged than with a hard truth they didn\u2019t want to hear.", ax:"enc", p:"+"},
+  // con (vs staying in your lane) \u2014 Agree = leans Connector
+  {t:"I\u2019ll redirect a deep-dive on details toward the bigger strategic picture, even if the room wanted to stay in the weeds.", ax:"con", p:"+"},
+  // cla (vs jumping to a verdict) \u2014 Agree = leans Clarifier
+  {t:"I\u2019d rather spend the time asking what someone was aiming for than spend it telling them what I\u2019d change.", ax:"cla", p:"+"},
+  // edg (vs preserving comfort) \u2014 Agree = leans Challenger
+  {t:"Pushing an idea somewhere uncomfortable matters more to me than keeping everyone in the room at ease.", ax:"edg", p:"+"},
+  // syn (vs letting it stay messy) \u2014 Agree = leans Synthesizer
+  {t:"When a discussion sprawls, I\u2019d rather force it into a few clear takeaways than let the ambiguity sit unresolved.", ax:"syn", p:"+"},
+  // usr (vs business/strategy lens) \u2014 Agree = leans User Proxy
+  {t:"When user needs and business strategy pull in different directions, I\u2019ll argue for the user almost every time.", ax:"usr", p:"+"},
+  // enc reverse (vs Challenger) \u2014 Agree = leans away from Encourager
+  {t:"If softening my point would blunt it, I\u2019d rather just say the blunt version.", ax:"enc", p:"-"},
+  // con (vs handing it off) \u2014 Agree = leans Connector
+  {t:"I\u2019d rather be the one connecting the work to the broader goals than wait for the team to make those links themselves.", ax:"con", p:"+"},
+  // cla (vs offering my own answer) \u2014 Agree = leans Clarifier
+  {t:"When something\u2019s unclear, I\u2019d rather keep asking questions than offer my own read to move things along.", ax:"cla", p:"+"},
+  // edg (vs respecting a settled call) \u2014 Agree = leans Challenger
+  {t:"I\u2019ll reopen a direction the team has clearly settled on if I think it\u2019s too safe.", ax:"edg", p:"+"},
+  // syn reverse (vs letting ideas breathe) \u2014 Agree = leans away from Synthesizer
+  {t:"I\u2019d rather let a messy discussion keep exploring than tie it up in a tidy summary before it\u2019s ready.", ax:"syn", p:"-"},
+  // usr (vs trusting the proposed solution) \u2014 Agree = leans User Proxy
+  {t:"Before discussing how good a solution is, I need to be convinced it\u2019s even solving the right problem for the people using it.", ax:"usr", p:"+"},
+  // con reverse (vs giving others the floor) \u2014 Agree = leans away from Connector
+  {t:"When I can see the big picture clearly, I\u2019d rather hold the floor and make sure no one misses it than hand it off and risk it getting lost.", ax:"con", p:"+"},
+  // edg reverse (vs challenging) \u2014 Agree = leans away from Challenger
+  {t:"Once a team has alignment, I\u2019d rather protect that momentum than challenge assumptions and risk unsettling it.", ax:"edg", p:"-"},
+  // usr reverse (vs leading with user examples) \u2014 Agree = leans away from User Proxy
+  {t:"I\u2019m more likely to respond from craft, strategy, or technical constraints than to lead with what real users would experience.", ax:"usr", p:"-"}
+];
+
+const ARIA=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
+const answers=new Array(QUESTIONS.length).fill(null);
+
+const qWrap=document.getElementById('questions');
+QUESTIONS.forEach((q,i)=>{
+  const card=document.createElement('div');
+  card.className='q'; card.id='q'+i;
+  let circles='';
+  for(let v=0;v<5;v++){
+    circles+=`<button type="button" class="circle s${v}" data-v="${v}" aria-pressed="false" aria-label="${ARIA[v]}" title="${ARIA[v]}"></button>`;
+  }
+  card.innerHTML=`<div class="qnum">Q${i+1}</div><div class="qtext">${q.t}</div>`+
+    `<div class="scale"><span class="anchor left">Disagree</span><div class="circles" data-i="${i}">${circles}</div><span class="anchor right">Agree</span></div>`;
+  qWrap.appendChild(card);
+
+  // One delegated handler per row, so a tap on a circle can't be missed even
+  // mid-animation. pointerup covers mouse/touch/pen; click covers keyboard
+  // (Enter/Space) and we de-dupe so a single tap selects exactly once.
+  const row=card.querySelector('.circles');
+  let lastTs=0;
+  const select=(e)=>{
+    const btn=e.target.closest('.circle');
+    if(!btn||!row.contains(btn))return;
+    if(e.type==='click'&&e.timeStamp-lastTs<500)return; // skip click synthesized after pointerup
+    if(e.type==='pointerup')lastTs=e.timeStamp;
+    e.preventDefault();
+    pick(i,parseInt(btn.dataset.v,10),btn);
+  };
+  row.addEventListener('pointerup',select);
+  row.addEventListener('click',select);
+});
+
+function pick(i,v,btn){
+  answers[i]=v;
+  const card=document.getElementById('q'+i);
+  card.querySelectorAll('.circle').forEach(o=>o.setAttribute('aria-pressed','false'));
+  btn.setAttribute('aria-pressed','true');
+  card.classList.add('answered');
+  updateProgress();
+  document.getElementById('miss').textContent='';
+}
+
+function updateProgress(){
+  const done=answers.filter(a=>a!==null).length;
+  const pct=Math.round(done/QUESTIONS.length*100);
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('ptext').textContent=`${done} of ${QUESTIONS.length} answered`;
+  document.getElementById('ppct').textContent=pct+'%';
+  document.getElementById('seeResults').disabled=(done<QUESTIONS.length);
+}
+
+document.getElementById('seeResults').addEventListener('click',()=>{
+  const firstMissing=answers.findIndex(a=>a===null);
+  if(firstMissing!==-1){
+    document.getElementById('miss').textContent='Please answer every statement first.';
+    document.getElementById('q'+firstMissing).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  computeResults();
+});
+
+function computeResults(){
+  // forward% per axis = sum(adjusted)/(4*n), adjusted = score if '+', (4-score) if '-'
+  const tot={}, cnt={};
+  Object.keys(AX).forEach(k=>{tot[k]=0;cnt[k]=0;});
+  QUESTIONS.forEach((q,i)=>{
+    const adj = q.p==='+' ? answers[i] : (4-answers[i]);
+    tot[q.ax]+=adj; cnt[q.ax]+=1;
+  });
+  const rows=Object.keys(AX).map(k=>{
+    const fwd=tot[k]/(4*cnt[k]);
+    return {k, fwd, shadow:1-fwd};
+  });
+
+  const byForward=[...rows].sort((a,b)=>b.fwd-a.fwd);
+  const byShadow=[...rows].sort((a,b)=>b.shadow-a.shadow);
+  const primary=byForward[0];
+  const shadow=byShadow[0];
+
+  const P=AX[primary.k], S=AX[shadow.k];
+  document.getElementById('primaryName').textContent=P.name;
+  document.getElementById('primaryPct').textContent='Your strongest style · '+Math.round(primary.fwd*100)+'% match';
+  document.getElementById('primaryDesc').textContent=P.desc;
+  document.getElementById('primaryGrowth').textContent=P.growth;
+
+  document.getElementById('shadowName').textContent=S.shadow;
+  document.getElementById('shadowPct').textContent='The flip side of '+S.name;
+  document.getElementById('shadowDesc').textContent=S.sdesc;
+  document.getElementById('shadowTell').textContent=S.tell;
+  document.getElementById('shadowPath').textContent=S.path;
+
+  // full breakdown: one expandable deep-dive card per archetype, ordered by forward strength
+  const allBars=document.getElementById('allBars');
+  allBars.innerHTML='';
+  byForward.forEach((r,idx)=>{
+    const a=AX[r.k];
+    const fwdPct=Math.round(r.fwd*100);
+    const card=document.createElement('details');
+    card.className='dd';
+    if(idx===0)card.open=true; // open the top result by default
+    card.innerHTML=`
+      <summary>
+        <span class="dd-head">
+          <span class="dd-name">${a.name}</span>
+          <span class="dd-vs">Flip side: ${a.shadow}</span>
+        </span>
+        <span class="dd-pct">${fwdPct}% match</span>
+        <span class="chev">⌄</span>
+      </summary>
+      <div class="dd-bartrack">
+        <div class="dd-bar-fwd" style="width:0"></div>
+        <div class="dd-bar-shadow" style="width:${100-fwdPct}%"></div>
+      </div>
+      <div class="dd-body">
+        <div class="dd-block">
+          <div class="dd-label fwd">${a.name}</div>
+          <p>${a.full}</p>
+          <p class="dd-pf"><b>Lean into it:</b> ${a.growth}</p>
+        </div>
+        <div class="dd-block">
+          <div class="dd-label shd">Flip side · ${a.shadow}</div>
+          <p>${a.sfull}</p>
+          <p class="dd-tell">${a.tell}</p>
+          <p class="dd-pf"><b>Path forward:</b> ${a.path}</p>
+        </div>
+      </div>`;
+    allBars.appendChild(card);
+    requestAnimationFrame(()=>{setTimeout(()=>{card.querySelector('.dd-bar-fwd').style.width=fwdPct+'%';},60);});
+  });
+
+  document.getElementById('assessment').style.display='none';
+  const res=document.getElementById('results');
+  res.classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function restart(){
+  answers.fill(null);
+  document.querySelectorAll('.opt').forEach(o=>o.setAttribute('aria-pressed','false'));
+  document.querySelectorAll('.q').forEach(c=>c.classList.remove('answered'));
+  document.getElementById('breakdown').open=false;
+  updateProgress();
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('assessment').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
