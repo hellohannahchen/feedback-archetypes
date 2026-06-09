@@ -225,6 +225,79 @@ body.hannah .restart button{border-color:var(--line);color:#b06a90}
 body.hannah .foot{color:#d3a8c0}
 body.hannah .theme-toggle{background:#fff;border-color:var(--moss);box-shadow:0 3px 14px rgba(255,95,162,.3)}
 body.hannah .theme-toggle .spark{filter:none}
+
+/* ===== AUGUST MODE: condensed, monospace, white-on-black, no whimsy ===== */
+body.august{
+  --ink:#e6e6e6;
+  --paper:#000;
+  --paper-2:#161616;
+  --moss:#e6e6e6;
+  --moss-soft:#2a2a2a;
+  --clay:#9a9a9a;
+  --clay-soft:#2a2a2a;
+  --gold:#8a8a8a;
+  --line:#333;
+  --shadow:rgba(0,0,0,.6);
+  font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  background:#000;
+  background-image:none;
+  color:#e6e6e6;
+}
+body.august *{font-family:inherit !important;letter-spacing:0 !important}
+body.august h1,body.august .card h2,body.august .qnum,body.august .bar-name,body.august .bar-val,body.august .pct,body.august .dd-name,body.august .dd-pct{font-weight:600}
+body.august h1{font-size:clamp(20px,6vw,26px);line-height:1.2;text-transform:none}
+body.august .kicker{color:#8a8a8a}
+body.august .kicker::before{background:#555}
+body.august .lede{color:#9a9a9a}
+body.august .scalehint{background:#111;border-color:var(--line);color:#9a9a9a;border-radius:0}
+body.august .scalehint b{color:#e6e6e6}
+body.august .progress-bar{background:#000;border-color:var(--line)}
+body.august .progress-row{color:#9a9a9a}
+body.august .track{background:#1c1c1c}
+body.august .fill{background:#e6e6e6}
+body.august .q{background:#0c0c0c;border-color:var(--line);border-radius:0;box-shadow:none}
+body.august .q::before{background:#333}
+body.august .q.answered::before{background:#e6e6e6}
+body.august .qnum{color:#8a8a8a}
+body.august .qtext{font-size:14px}
+body.august .scale .anchor.left,body.august .scale .anchor.right{color:#8a8a8a}
+body.august .circle{border-color:#555 !important}
+body.august .circle[aria-pressed="true"]{background:#e6e6e6 !important;border-color:#e6e6e6 !important;box-shadow:0 0 0 2px #444 !important}
+body.august .btn-primary{background:#e6e6e6;color:#000;border-radius:0;box-shadow:none;font-weight:600}
+body.august .btn-primary:disabled{background:#2a2a2a;color:#666}
+body.august .miss{color:#c98a8a}
+body.august .card{border-radius:0}
+body.august .card-primary{background:#141414;color:#e6e6e6;border:1px solid var(--line)}
+body.august .card-primary p{color:#cfcfcf;opacity:1}
+body.august .card-primary .tag,body.august .card-shadow .tag{color:#8a8a8a}
+body.august .card-shadow{background:#0c0c0c;border-color:var(--line)}
+body.august .card-primary .pf{border-top-color:#333}
+body.august .card-primary .pf b,body.august .card-shadow .pf b{color:#e6e6e6}
+body.august .res-kicker{color:#8a8a8a}
+body.august .connect{color:#7a7a7a}
+body.august .full-intro{color:#7a7a7a}
+body.august summary{color:#cfcfcf}
+body.august summary .chev{color:#8a8a8a}
+body.august .dd{background:#0c0c0c;border-color:var(--line);border-radius:0}
+body.august .dd-body{color:#9a9a9a}
+body.august .dd-bartrack{background:#1c1c1c}
+body.august .dd .dd-bar-fwd{background:#e6e6e6}
+body.august .dd .dd-bar-shadow{background:#2a2a2a}
+body.august .dd .dd-label.fwd,body.august .dd .dd-label.shd{color:#8a8a8a}
+body.august .dd .dd-label::after{background:#333}
+body.august .dd .dd-name,body.august .dd .dd-pf b{color:#e6e6e6}
+body.august .dd-tell{color:#7a7a7a}
+body.august .bar-track{background:#1c1c1c}
+body.august .bar-fwd{background:#e6e6e6}
+body.august .bar-shadow-seg{background:#2a2a2a}
+body.august .bar-legend{color:#7a7a7a}
+body.august .dot-f{background:#e6e6e6}
+body.august .dot-s{background:#2a2a2a;border-color:#666}
+body.august .restart button{border-color:var(--line);color:#9a9a9a;border-radius:0}
+body.august .foot{color:#555}
+body.august .theme-toggle{background:#111;border-color:#444;border-radius:0;box-shadow:none}
+body.august .theme-toggle .spark{filter:none}
+body.august .theme-toggle::after{background:#e6e6e6;color:#000;border-radius:0}
 </style>
 </head>
 <body>
@@ -402,39 +475,91 @@ const AXH = {
     path:"Pause, ask the questions, actually listen to the intent, and build it together. Try \u201cwait, what are you hoping this does?\u201d"}
 };
 
-// Static UI copy, both voices, keyed by element id.
-const COPY = {
-  t_kicker:{norm:"Feedback styles", hannah:"Feedback styles \u2728"},
-  t_h1:{norm:"Which feedback archetype are you?", hannah:"Bestie, which feedback archetype are you??"},
-  t_lede:{norm:"A quick read on how you tend to show up when giving feedback, where you bring real value, and where you might lean too hard under pressure.", hannah:"A cute lil read on how you show up when you\u2019re giving feedback \u2014 where you totally shine, and where you might lean a smidge too hard when things get stressful."},
-  t_scalehint:{norm:"There are no right answers \u2014 each statement is a real tension. <b>Pick the circle closest to where you honestly land between disagree and agree.</b>", hannah:"There\u2019s no wrong answers bestie \u2014 each one\u2019s a real lil tension. <b>Just tap the circle closest to where you honestly land between disagree and agree.</b>"},
-  seeResults:{norm:"See my archetype", hannah:"Show me my archetype! \ud83d\udc96"},
-  t_reskicker:{norm:"Your results", hannah:"Your results \ud83d\udc85"},
-  t_primaryTag:{norm:"Primary style", hannah:"Your main character energy"},
-  t_leanLabel:{norm:"Lean into it:", hannah:"Lean into it, bestie:"},
-  t_shadowTag:{norm:"Watch for \u00b7 under pressure", hannah:"Watch out \u00b7 when you\u2019re stressed"},
-  t_pathLabel:{norm:"Path forward:", hannah:"Glow-up move:"},
-  t_connect:{norm:"None of us is just one archetype. The strongest feedback-givers balance all of them against what a project needs in the moment.", hannah:"None of us is just one archetype, ok? The baddies who give the best feedback balance all of them depending on what the moment needs. \ud83d\udc95"},
-  t_summary:{norm:"Read more \u00b7 deep dive on all six", hannah:"Read more \u00b7 the full tea on all six \u2615"},
-  t_fullintro:{norm:"Every archetype is a real strength \u2014 and each one has a flip side that can emerge when that strength runs too hot. Tap any archetype to read the full profile. They\u2019re ordered by how strongly each one showed up for you.", hannah:"Every archetype is a real strength \u2014 and each one\u2019s got a flip side that pops out when that strength runs a lil too hot. Tap any of them for the full profile, bestie. They\u2019re sorted by how strongly each one showed up for you. \ud83d\udc97"},
-  t_legendF:{norm:"Your strength", hannah:"Your strength"},
-  t_legendS:{norm:"Flip side", hannah:"Flip side"},
-  t_restart:{norm:"Start over", hannah:"Redo it bestie \u21ba"},
-  t_foot:{norm:"Epic \u00b7 UXD TL feedback session", hannah:"Epic \u00b7 UXD TL feedback session \ud83d\udc96\u2728"}
+// ---- August Mode voice: condensed, no fluff, dry/deadpan. Same names + meaning. ----
+const AXA = {
+  enc:{name:"The Encourager", shadow:"The Bystander",
+    desc:"Names what works. Builds safety. Keeps teams moving.",
+    full:"Highlights strengths. Builds momentum and safety. Useful early, when people need cover to take risks. Risk: too much affirmation buries the real critique.",
+    growth:"Be warm and direct. Pick both.",
+    sdesc:"Bystander: holds back. Stays quiet to avoid disrupting. Others read silence as agreement.",
+    sfull:"Withholds thoughts to avoid friction. Silence gets misread as consensus. Under stress, goes quiet. Useful feedback never surfaces.",
+    tell:"Tell: you go quiet.",
+    path:"Say the one thing. Incomplete is fine."},
+  con:{name:"The Connector", shadow:"The Monopolizer",
+    desc:"Ties the work to the bigger goals. Keeps it aligned.",
+    full:"Links work to strategy and the larger system. Unifies stakeholder views into one direction. Risk: over-framing when the team just needs to ship.",
+    growth:"Make the link, then stop. Let others connect it too.",
+    sdesc:"Monopolizer: takes the floor. Sees the big picture, won't let anyone miss it.",
+    sfull:"Takes up too much room. Sees the picture clearly, needs everyone to see it. Under pressure, talks over the quieter ones.",
+    tell:"Tell: you grab the floor.",
+    path:"Pull people in. Ask one person for their take."},
+  cla:{name:"The Clarifier", shadow:"The Fog",
+    desc:"Asks the questions that surface intent and assumptions.",
+    full:"Cuts ambiguity with targeted questions. Surfaces goals, constraints, the real problem. Brings structure to fuzzy work. Risk: questions stall momentum, feel like interrogation.",
+    growth:"Watch when questions stall things. Add some warmth.",
+    sdesc:"Fog: feedback turns vague. Too high-level. Nobody knows what to do with it.",
+    sfull:"Feedback goes vague and abstract. Comes from overload or thinking faster than you can say it. Confuses instead of clarifies.",
+    tell:"Tell: your thoughts blur.",
+    path:"Slow down. Use a specific example. Confirm shared understanding."},
+  edg:{name:"The Challenger", shadow:"The Disruptor",
+    desc:"Pushes ideas past the obvious. Questions the assumptions.",
+    full:"Stretches ideas. Questions settled assumptions. Breaks teams out of incrementalism. Risk: intensity destabilizes; ambition becomes personal, not shared.",
+    growth:"Dial the intensity. Keep it about the team's goal.",
+    sdesc:"Disruptor: the push creates friction. Feedback lands as rejection.",
+    sfull:"Challenge turns into friction. Intent is to improve; delivery feels abrupt and dismissive. Under stress, honesty sharpens into a takedown.",
+    tell:"Tell: challenge becomes criticism.",
+    path:"Lead with curiosity. \u201cWhat if we explored\u2026?\u201d"},
+  syn:{name:"The Synthesizer", shadow:"The Tour Guide",
+    desc:"Turns messy conversations into clear takeaways.",
+    full:"Spots themes across perspectives. Turns chaos into focus. Helps teams prioritize and decide. Useful in messy, cross-disciplinary spaces. Risk: compressing too early.",
+    growth:"Don't close it too soon. Let the mess sit.",
+    sdesc:"Tour Guide: over-explains background. Buries the actionable part.",
+    sfull:"Over-explains context and process. Comes from wanting people to understand the background. Under stress, weighs the conversation down.",
+    tell:"Tell: you give too much context.",
+    path:"Distill. Only the context that adds clarity."},
+  usr:{name:"The User Proxy", shadow:"The Director",
+    desc:"Keeps feedback anchored to real user needs.",
+    full:"Grounds feedback in real people and real problems. Keeps the team honest about solving the right thing. Risk: over-weighting the user when strategy and constraints also matter.",
+    growth:"Don't only play the user card. Strategy counts too.",
+    sdesc:"Director: prescribes solutions fast. Skips exploration.",
+    sfull:"Jumps to the answer. Skips the exploring. Comes from expertise and wanting to help. Under pressure, it flattens others' ownership.",
+    tell:"Tell: you solve before you listen.",
+    path:"Pause. Ask the intent first. \u201cWhat are you hoping this does?\u201d"}
 };
 
-// Dynamic-string templates that depend on data, both voices.
+// Static UI copy, all three voices, keyed by element id.
+const COPY = {
+  t_kicker:{norm:"Feedback styles", hannah:"Feedback styles \u2728", august:"Feedback styles"},
+  t_h1:{norm:"Which feedback archetype are you?", hannah:"Bestie, which feedback archetype are you??", august:"Feedback archetype assessment"},
+  t_lede:{norm:"A quick read on how you tend to show up when giving feedback, where you bring real value, and where you might lean too hard under pressure.", hannah:"A cute lil read on how you show up when you\u2019re giving feedback \u2014 where you totally shine, and where you might lean a smidge too hard when things get stressful.", august:"How you show up when giving feedback. Where you help. Where you overreach."},
+  t_scalehint:{norm:"There are no right answers \u2014 each statement is a real tension. <b>Pick the circle closest to where you honestly land between disagree and agree.</b>", hannah:"There\u2019s no wrong answers bestie \u2014 each one\u2019s a real lil tension. <b>Just tap the circle closest to where you honestly land between disagree and agree.</b>", august:"15 statements. <b>Pick where you land. Disagree on the left, agree on the right.</b>"},
+  seeResults:{norm:"See my archetype", hannah:"Show me my archetype! \ud83d\udc96", august:"Submit"},
+  t_reskicker:{norm:"Your results", hannah:"Your results \ud83d\udc85", august:"Results"},
+  t_primaryTag:{norm:"Primary style", hannah:"Your main character energy", august:"Primary"},
+  t_leanLabel:{norm:"Lean into it:", hannah:"Lean into it, bestie:", august:"Use:"},
+  t_shadowTag:{norm:"Watch for \u00b7 under pressure", hannah:"Watch out \u00b7 when you\u2019re stressed", august:"Under pressure"},
+  t_pathLabel:{norm:"Path forward:", hannah:"Glow-up move:", august:"Fix:"},
+  t_connect:{norm:"None of us is just one archetype. The strongest feedback-givers balance all of them against what a project needs in the moment.", hannah:"None of us is just one archetype, ok? The baddies who give the best feedback balance all of them depending on what the moment needs. \ud83d\udc95", august:"Nobody is one archetype. You balance them against what the moment needs."},
+  t_summary:{norm:"Read more \u00b7 deep dive on all six", hannah:"Read more \u00b7 the full tea on all six \u2615", august:"All six"},
+  t_fullintro:{norm:"Every archetype is a real strength \u2014 and each one has a flip side that can emerge when that strength runs too hot. Tap any archetype to read the full profile. They\u2019re ordered by how strongly each one showed up for you.", hannah:"Every archetype is a real strength \u2014 and each one\u2019s got a flip side that pops out when that strength runs a lil too hot. Tap any of them for the full profile, bestie. They\u2019re sorted by how strongly each one showed up for you. \ud83d\udc97", august:"Each archetype is a strength with a flip side. Ordered by your score. Expand for detail."},
+  t_legendF:{norm:"Your strength", hannah:"Your strength", august:"Strength"},
+  t_legendS:{norm:"Flip side", hannah:"Flip side", august:"Flip side"},
+  t_restart:{norm:"Start over", hannah:"Redo it bestie \u21ba", august:"Restart"},
+  t_foot:{norm:"Epic \u00b7 UXD TL feedback session", hannah:"Epic \u00b7 UXD TL feedback session \ud83d\udc96\u2728", august:"Epic \u00b7 UXD TL feedback session"}
+};
+
+// Dynamic-string templates that depend on data, all three voices.
 const TPL = {
-  primaryPct:{norm:p=>'Your strongest style \u00b7 '+p+'% match', hannah:p=>'Your strongest style \u00b7 '+p+'% match bestie \ud83d\udc96'},
-  shadowPct:{norm:s=>'The flip side of '+s, hannah:s=>'The flip side of '+s+' \ud83d\udc40'},
-  ddVs:{norm:s=>'Flip side: '+s, hannah:s=>'Flip side: '+s},
-  ddPct:{norm:p=>p+'% match', hannah:p=>p+'% match'},
-  ddFwdLabel:{norm:n=>n, hannah:n=>n},
-  ddShdLabel:{norm:s=>'Flip side \u00b7 '+s, hannah:s=>'Flip side \u00b7 '+s},
-  leanLabel:{norm:'Lean into it:', hannah:'Lean into it, bestie:'},
-  pathLabel:{norm:'Path forward:', hannah:'Glow-up move:'},
-  miss:{norm:'Please answer every statement first.', hannah:'Bestie you gotta answer every one first! \ud83d\ude4f'},
-  progress:{norm:(d,t)=>`${d} of ${t} answered`, hannah:(d,t)=>`${d} of ${t} answered \u2728`}
+  primaryPct:{norm:p=>'Your strongest style \u00b7 '+p+'% match', hannah:p=>'Your strongest style \u00b7 '+p+'% match bestie \ud83d\udc96', august:p=>'Strongest \u00b7 '+p+'%'},
+  shadowPct:{norm:s=>'The flip side of '+s, hannah:s=>'The flip side of '+s+' \ud83d\udc40', august:s=>'Flip side of '+s},
+  ddVs:{norm:s=>'Flip side: '+s, hannah:s=>'Flip side: '+s, august:s=>'Flip: '+s},
+  ddPct:{norm:p=>p+'% match', hannah:p=>p+'% match', august:p=>p+'%'},
+  ddFwdLabel:{norm:n=>n, hannah:n=>n, august:n=>n},
+  ddShdLabel:{norm:s=>'Flip side \u00b7 '+s, hannah:s=>'Flip side \u00b7 '+s, august:s=>'Flip \u00b7 '+s},
+  leanLabel:{norm:'Lean into it:', hannah:'Lean into it, bestie:', august:'Use:'},
+  pathLabel:{norm:'Path forward:', hannah:'Glow-up move:', august:'Fix:'},
+  miss:{norm:'Please answer every statement first.', hannah:'Bestie you gotta answer every one first! \ud83d\ude4f', august:'Answer all of them first.'},
+  progress:{norm:(d,t)=>`${d} of ${t} answered`, hannah:(d,t)=>`${d} of ${t} answered \u2728`, august:(d,t)=>`${d}/${t}`}
 };
 
 // ---- 15 questions. polarity '+' = forward strength, '-' = reverse-scored ----
@@ -491,13 +616,35 @@ const QH = [
   "I\u2019m more likely to respond from craft or strategy or technical stuff than to lead with what real users would actually experience."
 ];
 
+// August-voice question text, same order as QUESTIONS (meaning + scoring unchanged).
+const QA = [
+  "I'd rather end on encouragement than on a hard truth.",
+  "I redirect detail discussions toward the bigger strategic picture.",
+  "I'd rather ask what someone was aiming for than tell them what I'd change.",
+  "Pushing an idea somewhere uncomfortable beats keeping everyone at ease.",
+  "When a discussion sprawls, I force it into a few clear takeaways.",
+  "When user needs and business strategy conflict, I argue for the user.",
+  "If softening my point would blunt it, I say the blunt version.",
+  "I'd rather connect the work to broader goals myself than wait for the team to.",
+  "When something's unclear, I keep asking questions instead of offering my read.",
+  "I'll reopen a settled direction if I think it's too safe.",
+  "I'd rather let a messy discussion keep going than summarize it too early.",
+  "Before judging a solution, I need to know it solves the right problem.",
+  "When I see the big picture clearly, I hold the floor so no one misses it.",
+  "Once a team is aligned, I protect momentum over challenging assumptions.",
+  "I respond more from craft, strategy, or constraints than from user experience."
+];
+
 const ARIA=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
 const answers=new Array(QUESTIONS.length).fill(null);
 
-// Active language + content accessors. ax() returns the active archetype map.
-let LANG = (localStorage.getItem('faa-lang')==='hannah') ? 'hannah' : 'norm';
-const ax = ()=> LANG==='hannah' ? AXH : AX;
-const qtext = (i)=> LANG==='hannah' ? QH[i] : QUESTIONS[i].t;
+// Three modes cycled by the special button. norm = default; hannah = pink/valley-girl; august = mono/deadpan.
+const MODES=['norm','hannah','august'];
+const AXMAP={norm:AX, hannah:AXH, august:AXA};
+const QMAP={norm:QUESTIONS.map(q=>q.t), hannah:QH, august:QA};
+let LANG = MODES.includes(localStorage.getItem('faa-lang')) ? localStorage.getItem('faa-lang') : 'norm';
+const ax = ()=> AXMAP[LANG];
+const qtext = (i)=> QMAP[LANG][i];
 
 const qWrap=document.getElementById('questions');
 QUESTIONS.forEach((q,i)=>{
@@ -669,22 +816,29 @@ function applyLang(){
   if(lastResult) renderResults();
 }
 
-function setTheme(hannah){
-  LANG = hannah ? 'hannah' : 'norm';
-  document.body.classList.toggle('hannah',hannah);
+// icon shown on the button = the icon of the CURRENT mode; tip = the mode the NEXT click brings.
+const MODE_ICON={norm:'✨', hannah:'✨', august:'🪦'};
+const NEXT_TIP={norm:'Hannah Mode', hannah:'August Mode', august:'Normal Mode'};
+
+function setMode(mode){
+  LANG = MODES.includes(mode) ? mode : 'norm';
+  document.body.classList.remove('hannah','august');
+  if(LANG!=='norm') document.body.classList.add(LANG);
   const t=document.getElementById('themeToggle');
-  t.setAttribute('aria-pressed',hannah?'true':'false');
-  t.setAttribute('data-tip',hannah?'Normal Mode':'Hannah Mode');
+  t.querySelector('.spark').textContent=MODE_ICON[LANG];
+  t.setAttribute('data-tip',NEXT_TIP[LANG]);
+  t.setAttribute('aria-label',NEXT_TIP[LANG]);
   localStorage.setItem('faa-lang',LANG);
   applyLang();
 }
 
 document.getElementById('themeToggle').addEventListener('click',()=>{
-  setTheme(!document.body.classList.contains('hannah'));
+  const next=MODES[(MODES.indexOf(LANG)+1)%MODES.length];
+  setMode(next);
 });
 
 // Restore saved mode on load.
-setTheme(LANG==='hannah');
+setMode(LANG);
 </script>
 </body>
 </html>
