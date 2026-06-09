@@ -152,18 +152,92 @@ details[open] summary .chev{transform:rotate(180deg)}
 .restart{margin-top:26px;text-align:center}
 .restart button{background:none;border:1px solid var(--line);color:#5d6a62;font-family:inherit;font-size:13px;padding:11px 22px;border-radius:11px;cursor:pointer;font-weight:500}
 .foot{text-align:center;font-size:11px;color:#9a9482;margin-top:30px;letter-spacing:.02em}
+
+/* theme toggle */
+.theme-toggle{position:fixed;top:calc(env(safe-area-inset-top) + 12px);right:14px;z-index:60;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fffdf6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:19px;line-height:1;box-shadow:0 3px 10px var(--shadow);transition:transform .15s,box-shadow .2s,background .25s,border-color .25s}
+.theme-toggle:hover{transform:scale(1.06)}
+.theme-toggle:active{transform:scale(.92)}
+.theme-toggle .spark{filter:grayscale(1) opacity(.55);transition:filter .25s,transform .4s}
+.theme-toggle:hover .spark{transform:rotate(18deg)}
+/* tooltip */
+.theme-toggle::after{content:attr(data-tip);position:absolute;top:50%;right:calc(100% + 9px);transform:translateY(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s}
+.theme-toggle:hover::after,.theme-toggle:focus-visible::after{opacity:1}
+
+/* ===== HANNAH MODE: white + pink + cute ===== */
+body.hannah{
+  --ink:#5b2e4a;
+  --paper:#fffafd;
+  --paper-2:#ffeef6;
+  --moss:#ff5fa2;          /* primary accent (was green) */
+  --moss-soft:#ffd9ec;
+  --clay:#c77dff;          /* secondary accent (was clay) */
+  --clay-soft:#f3e0ff;
+  --gold:#ff9ecf;
+  --line:#ffd6ea;
+  --shadow:rgba(255,95,162,.16);
+  background:var(--paper);
+  background-image:radial-gradient(circle at 12% 8%,rgba(255,95,162,.10),transparent 42%),radial-gradient(circle at 88% 92%,rgba(199,125,255,.10),transparent 45%);
+}
+body.hannah .lede{color:#9a5e80}
+body.hannah .scalehint{color:#9a5e80}
+body.hannah .scalehint b{color:var(--ink)}
+body.hannah .progress-row{color:var(--moss)}
+body.hannah .q{background:#fff;box-shadow:0 2px 12px rgba(255,95,162,.10);border-radius:20px}
+body.hannah .q::before{background:var(--moss-soft)}
+body.hannah .q.answered::before{background:var(--moss)}
+body.hannah .qnum{color:var(--moss)}
+body.hannah .scale .anchor.left{color:var(--clay)}
+body.hannah .scale .anchor.right{color:var(--moss)}
+body.hannah .circle.s0{border-color:var(--clay)}
+body.hannah .circle.s1{border-color:#d9a6ff}
+body.hannah .circle.s2{border-color:#f3b9d8}
+body.hannah .circle.s3{border-color:#ff95c2}
+body.hannah .circle.s4{border-color:var(--moss)}
+body.hannah .circle[aria-pressed="true"].s0,body.hannah .circle[aria-pressed="true"].s1{background:var(--clay);border-color:var(--clay);box-shadow:0 0 0 3px var(--clay-soft)}
+body.hannah .circle[aria-pressed="true"].s2{background:#f3a9d2;border-color:#f3a9d2;box-shadow:0 0 0 3px var(--paper-2)}
+body.hannah .circle[aria-pressed="true"].s3,body.hannah .circle[aria-pressed="true"].s4{background:var(--moss);border-color:var(--moss);box-shadow:0 0 0 3px var(--moss-soft)}
+body.hannah .btn-primary{background:var(--moss);box-shadow:0 6px 18px rgba(255,95,162,.32)}
+body.hannah .btn-primary:disabled{background:var(--paper-2);color:#d3a8c0}
+body.hannah .miss{color:var(--clay)}
+body.hannah .card{border-radius:22px}
+body.hannah .card-primary{background:linear-gradient(135deg,#ff7ab4,#ff5fa2)}
+body.hannah .card-shadow{background:#fff;border-color:var(--line)}
+body.hannah .card-primary p{color:#fff;opacity:.95}
+body.hannah .card-primary .tag{color:#fff3fa}
+body.hannah .card-shadow .tag{color:var(--clay)}
+body.hannah .card-shadow .pf b{color:var(--clay)}
+body.hannah .res-kicker{color:var(--moss)}
+body.hannah .connect{color:#9a5e80}
+body.hannah .full-intro{color:#9a5e80}
+body.hannah summary{color:var(--moss)}
+body.hannah summary .chev{color:var(--gold)}
+body.hannah .dd{background:#fff;border-radius:18px}
+body.hannah .dd .dd-bar-fwd{background:linear-gradient(90deg,#ff5fa2,#ff95c2)}
+body.hannah .dd .dd-bar-shadow{background:var(--clay-soft)}
+body.hannah .dd .dd-label.fwd{color:var(--moss)}
+body.hannah .dd .dd-label.shd{color:var(--clay)}
+body.hannah .dd .dd-name,body.hannah .dd .dd-pf b{color:var(--ink)}
+body.hannah .bar-fwd{background:linear-gradient(90deg,#ff5fa2,#ff95c2)}
+body.hannah .bar-shadow-seg{background:var(--clay-soft)}
+body.hannah .dot-f{background:var(--moss)}
+body.hannah .dot-s{background:var(--clay-soft);border-color:var(--clay)}
+body.hannah .restart button{border-color:var(--line);color:#b06a90}
+body.hannah .foot{color:#d3a8c0}
+body.hannah .theme-toggle{background:#fff;border-color:var(--moss);box-shadow:0 3px 14px rgba(255,95,162,.3)}
+body.hannah .theme-toggle .spark{filter:none}
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" data-tip="Hannah Mode" aria-label="Hannah Mode" aria-pressed="false"><span class="spark">✨</span></button>
 <div class="wrap">
 
   <!-- ASSESSMENT -->
   <div id="assessment">
     <header class="head">
-      <div class="kicker">Feedback styles</div>
-      <h1>Which feedback archetype are you?</h1>
-      <p class="lede">A quick read on how you tend to show up when giving feedback, where you bring real value, and where you might lean too hard under pressure.</p>
-      <div class="scalehint">There are no right answers — each statement is a real tension. <b>Pick the circle closest to where you honestly land between disagree and agree.</b></div>
+      <div class="kicker" id="t_kicker">Feedback styles</div>
+      <h1 id="t_h1">Which feedback archetype are you?</h1>
+      <p class="lede" id="t_lede">A quick read on how you tend to show up when giving feedback, where you bring real value, and where you might lean too hard under pressure.</p>
+      <div class="scalehint" id="t_scalehint">There are no right answers — each statement is a real tension. <b>Pick the circle closest to where you honestly land between disagree and agree.</b></div>
     </header>
 
     <div class="progress-bar">
@@ -182,44 +256,44 @@ details[open] summary .chev{transform:rotate(180deg)}
   <!-- RESULTS -->
   <div class="results" id="results">
     <div class="res-head">
-      <div class="res-kicker">Your results</div>
+      <div class="res-kicker" id="t_reskicker">Your results</div>
     </div>
 
     <div class="card card-primary">
-      <div class="tag">Primary style</div>
+      <div class="tag" id="t_primaryTag">Primary style</div>
       <h2 id="primaryName"></h2>
       <span class="pct" id="primaryPct"></span>
       <p id="primaryDesc"></p>
-      <div class="pf"><b>Lean into it:</b> <span id="primaryGrowth"></span></div>
+      <div class="pf"><b id="t_leanLabel">Lean into it:</b> <span id="primaryGrowth"></span></div>
     </div>
 
     <div class="card card-shadow">
-      <div class="tag">Watch for · under pressure</div>
+      <div class="tag" id="t_shadowTag">Watch for · under pressure</div>
       <h2 id="shadowName"></h2>
       <span class="pct" id="shadowPct"></span>
       <p id="shadowDesc"></p>
       <div class="tell" id="shadowTell"></div>
-      <div class="pf"><b>Path forward:</b> <span id="shadowPath"></span></div>
+      <div class="pf"><b id="t_pathLabel">Path forward:</b> <span id="shadowPath"></span></div>
     </div>
 
-    <p class="connect">None of us is just one archetype. The strongest feedback-givers balance all of them against what a project needs in the moment.</p>
+    <p class="connect" id="t_connect">None of us is just one archetype. The strongest feedback-givers balance all of them against what a project needs in the moment.</p>
 
     <details id="breakdown">
-      <summary><span>Read more · deep dive on all six</span><span class="chev">⌄</span></summary>
-      <p class="full-intro">Every archetype is a real strength — and each one has a flip side that can emerge when that strength runs too hot. Tap any archetype to read the full profile. They’re ordered by how strongly each one showed up for you.</p>
+      <summary><span id="t_summary">Read more · deep dive on all six</span><span class="chev">⌄</span></summary>
+      <p class="full-intro" id="t_fullintro">Every archetype is a real strength — and each one has a flip side that can emerge when that strength runs too hot. Tap any archetype to read the full profile. They’re ordered by how strongly each one showed up for you.</p>
       <div id="allBars"></div>
       <div class="bar-legend">
-        <span><span class="dot dot-f"></span>Your strength</span>
-        <span><span class="dot dot-s"></span>Flip side</span>
+        <span><span class="dot dot-f"></span><span id="t_legendF">Your strength</span></span>
+        <span><span class="dot dot-s"></span><span id="t_legendS">Flip side</span></span>
       </div>
     </details>
 
     <div class="restart">
-      <button onclick="restart()">Start over</button>
+      <button onclick="restart()" id="t_restart">Start over</button>
     </div>
   </div>
 
-  <div class="foot">Epic · UXD TL feedback session</div>
+  <div class="foot" id="t_foot">Epic · UXD TL feedback session</div>
 </div>
 
 <script>
@@ -276,6 +350,93 @@ const AX = {
     path:"Pause to ask questions, listen to the intent behind the work, and co-create. Ask \u201cwhat are you hoping this achieves?\u201d"}
 };
 
+// ---- Hannah Mode voice: same names + meaning, valley-girl rewrite of all copy ----
+const AXH = {
+  enc:{name:"The Encourager", shadow:"The Bystander",
+    desc:"Okay so you\u2019re literally the vibe-keeper. You hype people up and make the room feel safe, and you\u2019re always like \u201comg this part is so good\u201d before getting into the could-be-betters \u2014 which honestly keeps everyone wanting to keep going.",
+    full:"So basically Encouragers are the ones who keep the whole energy up \u2014 confidence, momentum, all the good feels. You just naturally clock what\u2019s working and call it out, and people totally feel it. You\u2019re a literal cheat code in early-stage stuff where everyone\u2019s nervous to share, because your hype makes people brave enough to take risks. Your one thing to watch? Don\u2019t be SO nice that the real feedback gets, like, lost in the sauce.",
+    growth:"Keep the love, but say the real thing too \u2014 being sweet AND clear is the ultimate combo, bestie.",
+    sdesc:"When the hype goes too quiet, you get the Bystander \u2014 where you\u2019re lowkey sitting on your thoughts so you don\u2019t rock the boat, and sometimes you\u2019re just not sure where you even land.",
+    sfull:"So the Bystander is when you hold it allll in \u2014 you don\u2019t wanna disrupt or step on toes, so you just\u2026 don\u2019t say the thing. The problem is everyone assumes you\u2019re totally on board when inside you\u2019re like \u201chmm not sure though.\u201d And when it gets stressful you kinda go full ghost, which can lowkey slow everyone down or hide feedback people actually needed.",
+    tell:"Telltale sign: you go quiet or you\u2019re second-guessing yourself like crazy.",
+    path:"Just say the one thought, even if it\u2019s half-baked. Showing up beats being perfect, periodt."},
+  con:{name:"The Connector", shadow:"The Monopolizer",
+    desc:"You\u2019re the big-picture girlie. You connect everyone\u2019s little piece to the bigger goals and the whole strategy, so the team always knows how their thing fits into the master plan. Iconic.",
+    full:"Connectors are the ones who zoom alll the way out and tie someone\u2019s work to the bigger goals, the strategy, the cross-team stuff \u2014 the whole vibe. You help everyone see where their piece fits in the grand scheme, and you keep the convo aligned with what actually matters. You\u2019re amazing at pulling in different people\u2019s takes and making them into one cohesive thing. Just don\u2019t over-do the big-picture thing when the team honestly just needs to get the little tactical stuff done.",
+    growth:"Make your big-picture point, then pass the mic so the team connects the dots too \u2014 don\u2019t hog the zoom-out, bestie.",
+    sdesc:"When you take up too much space, you get the Monopolizer \u2014 where you\u2019re kinda running the whole convo because you see it so clearly and you NEED everyone to get it too.",
+    sfull:"So the Monopolizer is when you\u2019re lowkey taking up the whole room because you see the big picture so clearly and you\u2019re like \u201cno no everyone HAS to know this.\u201d Under pressure you can totally talk over people without meaning to, and then the quieter girlies can\u2019t get a word in. Not the vibe.",
+    tell:"Telltale sign: you feel that urge to explain everything and grab the floor.",
+    path:"Use your main-character energy to pull people IN, not take over. Just ask someone \u201cokay what\u2019s your take though?\u201d"},
+  cla:{name:"The Clarifier", shadow:"The Fog",
+    desc:"You\u2019re the \u201cwait but what are we actually doing\u201d girlie, in the best way. You ask the smart little questions that get to what everyone\u2019s really aiming for and what problem we\u2019re even solving.",
+    full:"Clarifiers cut through the confusion by asking those thoughtful lil questions that get at what people are actually assuming and aiming for. You help everyone say out loud what they\u2019re really going for, what the real constraints are, and what problem we\u2019re even solving rn. When a project is giving fuzzy or messy or way-too-complicated, you bring the structure without killing the creative vibe. Just watch that your questions don\u2019t accidentally kill the momentum or make people feel like they\u2019re being interrogated, bestie.",
+    growth:"Notice when the questions are stalling the vibe, and mix in some hype with all the curiosity.",
+    sdesc:"When the clarity slips, you get the Fog \u2014 where your feedback goes all vague and abstract and so high-level that people are like \u201cokay but what do I DO with that.\u201d",
+    sfull:"So the Fog is when your feedback gets all blurry and floaty and so big-picture that nobody knows what to actually do with it. Usually it\u2019s \u2018cause you\u2019re overloaded or thinking faster than you can say it, and when it\u2019s stressful it kinda confuses people instead of helping. Oof.",
+    tell:"Telltale sign: your thoughts feel all jumbled or way too big-picture.",
+    path:"Slow it down bestie, drop a specific example, and double-check everyone\u2019s actually on the same page before moving on."},
+  edg:{name:"The Challenger", shadow:"The Disruptor",
+    desc:"You\u2019re the \u201cokay but what if we went BIGGER\u201d girlie. You push ideas past the obvious and poke at the assumptions everyone\u2019s scared to touch, and that\u2019s literally how the cool innovative stuff happens.",
+    full:"Challengers are the ones who stretch an idea wayyy past the obvious and dare everyone to go bolder or question the stuff they\u2019ve always just assumed. You bring that spicy future-focused energy that gets people thinking bigger, and you\u2019re honestly how teams break out of the boring incremental loop. Your growth thing is dialing the intensity so the push feels exciting and not, like, scary \u2014 and making sure it\u2019s about the team\u2019s vision, not just yours.",
+    growth:"Dial the challenge so it\u2019s inspiring not destabilizing, and keep it tied to the team\u2019s vibe, not just your own.",
+    sdesc:"When the push turns into friction, you get the Disruptor \u2014 where the challenge lands kinda harsh, and your honest feedback feels like you\u2019re trashing what\u2019s already there.",
+    sfull:"So the Disruptor is when the challenge stops being fun and starts creating, like, drama. Your intent is to make the work better, but it comes out abrupt or dismissive, and under stress your honesty gets sharp and people feel like you\u2019re rejecting everything they made. Not cute.",
+    tell:"Telltale sign: your challenge is turning into straight-up criticism.",
+    path:"Wrap the challenge in curiosity so it feels like an invite, not an attack. Open with \u201cooh what if we explored\u2026?\u201d"},
+  syn:{name:"The Synthesizer", shadow:"The Tour Guide",
+    desc:"You\u2019re the \u201clet me just tie this all together real quick\u201d girlie. You take a messy chaotic convo and spot the patterns and turn it into actual clarity. Genuinely so useful.",
+    full:"Synthesizers take a whole messy chaotic conversation and magically turn it into clear, focused takeaways. You naturally spot the themes and patterns across everyone\u2019s different opinions, and your \u201cconnecting the dots\u201d thing helps the team prioritize, decide, and actually move. You\u2019re a lifesaver in those cross-disciplinary or super-messy situations. Your growth edge is not squishing ideas into a neat little box TOO early \u2014 sometimes the chaos needs to breathe before the genius shows up.",
+    growth:"Don\u2019t rush to wrap it in a bow \u2014 sometimes the messy phase needs to breathe before the breakthrough.",
+    sdesc:"When the context-setting takes over, you get the Tour Guide \u2014 where you\u2019re over-explaining all the background and process instead of giving feedback people can actually use.",
+    sfull:"So the Tour Guide is when you over-explain alllll the backstory and the process instead of just giving the actionable feedback. It comes from wanting everyone to really get the full context, but under stress it just weighs the whole convo down and makes it harder to move forward. Less is more, bestie.",
+    tell:"Telltale sign: you feel that pull to give SO much context.",
+    path:"Distill, don\u2019t narrate. Only share the context that actually makes things clearer."},
+  usr:{name:"The User Proxy", shadow:"The Director",
+    desc:"You\u2019re the \u201cokay but what about the actual people using this\u201d girlie. You keep feedback grounded in real user needs and bring the empathy, so the team stays honest about solving the RIGHT problem.",
+    full:"User Proxies keep everything grounded in real people \u2014 their actual needs, their lived experiences, the real problems they\u2019re dealing with. You bring the empathy and the impact-thinking into the room so the work isn\u2019t just polished and clever, it\u2019s actually meaningful. You\u2019re the one keeping everyone honest about whether we\u2019re even solving the right thing. Your growth edge is not ONLY pulling the user card in moments where the strategy or technical or org stuff also deserves a seat at the table.",
+    growth:"Don\u2019t ONLY pull the user card \u2014 sometimes the strategy and technical stuff need equal airtime too, bestie.",
+    sdesc:"When your expertise outruns the exploring, you get the Director \u2014 where you\u2019re handing out solutions super fast and skipping the part where everyone explores, which can box people in.",
+    sfull:"So the Director is when you jump straight to the answer and skip the whole exploring phase. It\u2019s coming from a good place \u2014 you\u2019re decisive and you wanna help \u2014 but under pressure it can totally squash other people\u2019s creativity and their sense of ownership. We love confidence but make room, ok?",
+    tell:"Telltale sign: you\u2019re jumping into solutions before you even hear what they were going for.",
+    path:"Pause, ask the questions, actually listen to the intent, and build it together. Try \u201cwait, what are you hoping this does?\u201d"}
+};
+
+// Static UI copy, both voices, keyed by element id.
+const COPY = {
+  t_kicker:{norm:"Feedback styles", hannah:"Feedback styles \u2728"},
+  t_h1:{norm:"Which feedback archetype are you?", hannah:"Bestie, which feedback archetype are you??"},
+  t_lede:{norm:"A quick read on how you tend to show up when giving feedback, where you bring real value, and where you might lean too hard under pressure.", hannah:"A cute lil read on how you show up when you\u2019re giving feedback \u2014 where you totally shine, and where you might lean a smidge too hard when things get stressful."},
+  t_scalehint:{norm:"There are no right answers \u2014 each statement is a real tension. <b>Pick the circle closest to where you honestly land between disagree and agree.</b>", hannah:"There\u2019s no wrong answers bestie \u2014 each one\u2019s a real lil tension. <b>Just tap the circle closest to where you honestly land between disagree and agree.</b>"},
+  seeResults:{norm:"See my archetype", hannah:"Show me my archetype! \ud83d\udc96"},
+  t_reskicker:{norm:"Your results", hannah:"Your results \ud83d\udc85"},
+  t_primaryTag:{norm:"Primary style", hannah:"Your main character energy"},
+  t_leanLabel:{norm:"Lean into it:", hannah:"Lean into it, bestie:"},
+  t_shadowTag:{norm:"Watch for \u00b7 under pressure", hannah:"Watch out \u00b7 when you\u2019re stressed"},
+  t_pathLabel:{norm:"Path forward:", hannah:"Glow-up move:"},
+  t_connect:{norm:"None of us is just one archetype. The strongest feedback-givers balance all of them against what a project needs in the moment.", hannah:"None of us is just one archetype, ok? The baddies who give the best feedback balance all of them depending on what the moment needs. \ud83d\udc95"},
+  t_summary:{norm:"Read more \u00b7 deep dive on all six", hannah:"Read more \u00b7 the full tea on all six \u2615"},
+  t_fullintro:{norm:"Every archetype is a real strength \u2014 and each one has a flip side that can emerge when that strength runs too hot. Tap any archetype to read the full profile. They\u2019re ordered by how strongly each one showed up for you.", hannah:"Every archetype is a real strength \u2014 and each one\u2019s got a flip side that pops out when that strength runs a lil too hot. Tap any of them for the full profile, bestie. They\u2019re sorted by how strongly each one showed up for you. \ud83d\udc97"},
+  t_legendF:{norm:"Your strength", hannah:"Your strength"},
+  t_legendS:{norm:"Flip side", hannah:"Flip side"},
+  t_restart:{norm:"Start over", hannah:"Redo it bestie \u21ba"},
+  t_foot:{norm:"Epic \u00b7 UXD TL feedback session", hannah:"Epic \u00b7 UXD TL feedback session \ud83d\udc96\u2728"}
+};
+
+// Dynamic-string templates that depend on data, both voices.
+const TPL = {
+  primaryPct:{norm:p=>'Your strongest style \u00b7 '+p+'% match', hannah:p=>'Your strongest style \u00b7 '+p+'% match bestie \ud83d\udc96'},
+  shadowPct:{norm:s=>'The flip side of '+s, hannah:s=>'The flip side of '+s+' \ud83d\udc40'},
+  ddVs:{norm:s=>'Flip side: '+s, hannah:s=>'Flip side: '+s},
+  ddPct:{norm:p=>p+'% match', hannah:p=>p+'% match'},
+  ddFwdLabel:{norm:n=>n, hannah:n=>n},
+  ddShdLabel:{norm:s=>'Flip side \u00b7 '+s, hannah:s=>'Flip side \u00b7 '+s},
+  leanLabel:{norm:'Lean into it:', hannah:'Lean into it, bestie:'},
+  pathLabel:{norm:'Path forward:', hannah:'Glow-up move:'},
+  miss:{norm:'Please answer every statement first.', hannah:'Bestie you gotta answer every one first! \ud83d\ude4f'},
+  progress:{norm:(d,t)=>`${d} of ${t} answered`, hannah:(d,t)=>`${d} of ${t} answered \u2728`}
+};
+
 // ---- 15 questions. polarity '+' = forward strength, '-' = reverse-scored ----
 // 3 questions each for the three talk-focus axes (con, edg, usr); 2 each for the rest.
 const QUESTIONS = [
@@ -311,8 +472,32 @@ const QUESTIONS = [
   {t:"I\u2019m more likely to respond from craft, strategy, or technical constraints than to lead with what real users would experience.", ax:"usr", p:"-"}
 ];
 
+// Hannah-voice question text, same order as QUESTIONS (meaning + scoring unchanged).
+const QH = [
+  "I\u2019d way rather a session end with everyone feeling hyped than with some hard truth they didn\u2019t wanna hear.",
+  "I\u2019ll totally steer a deep-dive on the lil details back to the big strategic picture, even if the room wanted to stay in the weeds.",
+  "I\u2019d rather spend the time asking what someone was actually going for than spend it telling them what I\u2019d change.",
+  "Pushing an idea somewhere uncomfy matters more to me than keeping everyone in the room all cozy and at ease.",
+  "When a convo gets allll over the place, I\u2019d rather force it into a few clear takeaways than just let the chaos sit there.",
+  "When user needs and business strategy are pulling different ways, I\u2019m gonna fight for the user like every single time.",
+  "If softening my point would make it weak, I\u2019d honestly just say the blunt version.",
+  "I\u2019d rather be the one connecting the work to the bigger goals than sit back and wait for the team to figure out the links.",
+  "When something\u2019s confusing, I\u2019d rather keep asking questions than just throw out my own take to move things along.",
+  "I\u2019ll totally reopen a direction the team already settled on if I think it\u2019s playing it too safe.",
+  "I\u2019d rather let a messy convo keep exploring than wrap it up in a cute lil summary before it\u2019s ready.",
+  "Before we even talk about how good a solution is, I need to be convinced it\u2019s solving the right problem for the actual people using it.",
+  "When I can see the big picture super clearly, I\u2019d rather hold the floor and make sure nobody misses it than hand it off and risk it getting lost.",
+  "Once a team\u2019s all aligned, I\u2019d rather protect that good momentum than poke at assumptions and risk shaking it all up.",
+  "I\u2019m more likely to respond from craft or strategy or technical stuff than to lead with what real users would actually experience."
+];
+
 const ARIA=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
 const answers=new Array(QUESTIONS.length).fill(null);
+
+// Active language + content accessors. ax() returns the active archetype map.
+let LANG = (localStorage.getItem('faa-lang')==='hannah') ? 'hannah' : 'norm';
+const ax = ()=> LANG==='hannah' ? AXH : AX;
+const qtext = (i)=> LANG==='hannah' ? QH[i] : QUESTIONS[i].t;
 
 const qWrap=document.getElementById('questions');
 QUESTIONS.forEach((q,i)=>{
@@ -322,7 +507,7 @@ QUESTIONS.forEach((q,i)=>{
   for(let v=0;v<5;v++){
     circles+=`<button type="button" class="circle s${v}" data-v="${v}" aria-pressed="false" aria-label="${ARIA[v]}" title="${ARIA[v]}"></button>`;
   }
-  card.innerHTML=`<div class="qnum">Q${i+1}</div><div class="qtext">${q.t}</div>`+
+  card.innerHTML=`<div class="qnum">Q${i+1}</div><div class="qtext">${qtext(i)}</div>`+
     `<div class="scale"><span class="anchor left">Disagree</span><div class="circles" data-i="${i}">${circles}</div><span class="anchor right">Agree</span></div>`;
   qWrap.appendChild(card);
 
@@ -357,7 +542,7 @@ function updateProgress(){
   const done=answers.filter(a=>a!==null).length;
   const pct=Math.round(done/QUESTIONS.length*100);
   document.getElementById('fill').style.width=pct+'%';
-  document.getElementById('ptext').textContent=`${done} of ${QUESTIONS.length} answered`;
+  document.getElementById('ptext').textContent=TPL.progress[LANG](done,QUESTIONS.length);
   document.getElementById('ppct').textContent=pct+'%';
   document.getElementById('seeResults').disabled=(done<QUESTIONS.length);
 }
@@ -365,12 +550,15 @@ function updateProgress(){
 document.getElementById('seeResults').addEventListener('click',()=>{
   const firstMissing=answers.findIndex(a=>a===null);
   if(firstMissing!==-1){
-    document.getElementById('miss').textContent='Please answer every statement first.';
+    document.getElementById('miss').textContent=TPL.miss[LANG];
     document.getElementById('q'+firstMissing).scrollIntoView({behavior:'smooth',block:'center'});
     return;
   }
   computeResults();
 });
+
+// Holds the last computed standings so results can re-render on a language toggle.
+let lastResult=null;
 
 function computeResults(){
   // forward% per axis = sum(adjusted)/(4*n), adjusted = score if '+', (4-score) if '-'
@@ -387,37 +575,49 @@ function computeResults(){
 
   const byForward=[...rows].sort((a,b)=>b.fwd-a.fwd);
   const byShadow=[...rows].sort((a,b)=>b.shadow-a.shadow);
-  const primary=byForward[0];
-  const shadow=byShadow[0];
+  lastResult={byForward, primaryKey:byForward[0].k, primaryFwd:byForward[0].fwd, shadowKey:byShadow[0].k};
 
-  const P=AX[primary.k], S=AX[shadow.k];
+  renderResults();
+
+  document.getElementById('assessment').style.display='none';
+  const res=document.getElementById('results');
+  res.classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Renders the results panel from lastResult in the active language. Safe to re-call on toggle.
+function renderResults(){
+  if(!lastResult)return;
+  const A=ax();
+  const P=A[lastResult.primaryKey], S=A[lastResult.shadowKey];
   document.getElementById('primaryName').textContent=P.name;
-  document.getElementById('primaryPct').textContent='Your strongest style · '+Math.round(primary.fwd*100)+'% match';
+  document.getElementById('primaryPct').textContent=TPL.primaryPct[LANG](Math.round(lastResult.primaryFwd*100));
   document.getElementById('primaryDesc').textContent=P.desc;
   document.getElementById('primaryGrowth').textContent=P.growth;
 
   document.getElementById('shadowName').textContent=S.shadow;
-  document.getElementById('shadowPct').textContent='The flip side of '+S.name;
+  document.getElementById('shadowPct').textContent=TPL.shadowPct[LANG](S.name);
   document.getElementById('shadowDesc').textContent=S.sdesc;
   document.getElementById('shadowTell').textContent=S.tell;
   document.getElementById('shadowPath').textContent=S.path;
 
-  // full breakdown: one expandable deep-dive card per archetype, ordered by forward strength
+  // full breakdown: one expandable deep-dive card per archetype, ordered by strength
   const allBars=document.getElementById('allBars');
+  const openKeys=new Set([...allBars.querySelectorAll('.dd[open]')].map(d=>d.dataset.k));
   allBars.innerHTML='';
-  byForward.forEach((r,idx)=>{
-    const a=AX[r.k];
+  lastResult.byForward.forEach((r,idx)=>{
+    const a=A[r.k];
     const fwdPct=Math.round(r.fwd*100);
     const card=document.createElement('details');
-    card.className='dd';
-    if(idx===0)card.open=true; // open the top result by default
+    card.className='dd'; card.dataset.k=r.k;
+    if(openKeys.size? openKeys.has(r.k) : idx===0) card.open=true;
     card.innerHTML=`
       <summary>
         <span class="dd-head">
           <span class="dd-name">${a.name}</span>
-          <span class="dd-vs">Flip side: ${a.shadow}</span>
+          <span class="dd-vs">${TPL.ddVs[LANG](a.shadow)}</span>
         </span>
-        <span class="dd-pct">${fwdPct}% match</span>
+        <span class="dd-pct">${TPL.ddPct[LANG](fwdPct)}</span>
         <span class="chev">⌄</span>
       </summary>
       <div class="dd-bartrack">
@@ -426,37 +626,65 @@ function computeResults(){
       </div>
       <div class="dd-body">
         <div class="dd-block">
-          <div class="dd-label fwd">${a.name}</div>
+          <div class="dd-label fwd">${TPL.ddFwdLabel[LANG](a.name)}</div>
           <p>${a.full}</p>
-          <p class="dd-pf"><b>Lean into it:</b> ${a.growth}</p>
+          <p class="dd-pf"><b>${TPL.leanLabel[LANG]}</b> ${a.growth}</p>
         </div>
         <div class="dd-block">
-          <div class="dd-label shd">Flip side · ${a.shadow}</div>
+          <div class="dd-label shd">${TPL.ddShdLabel[LANG](a.shadow)}</div>
           <p>${a.sfull}</p>
           <p class="dd-tell">${a.tell}</p>
-          <p class="dd-pf"><b>Path forward:</b> ${a.path}</p>
+          <p class="dd-pf"><b>${TPL.pathLabel[LANG]}</b> ${a.path}</p>
         </div>
       </div>`;
     allBars.appendChild(card);
     requestAnimationFrame(()=>{setTimeout(()=>{card.querySelector('.dd-bar-fwd').style.width=fwdPct+'%';},60);});
   });
-
-  document.getElementById('assessment').style.display='none';
-  const res=document.getElementById('results');
-  res.classList.add('show');
-  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function restart(){
   answers.fill(null);
-  document.querySelectorAll('.opt').forEach(o=>o.setAttribute('aria-pressed','false'));
+  document.querySelectorAll('.circle').forEach(o=>o.setAttribute('aria-pressed','false'));
   document.querySelectorAll('.q').forEach(c=>c.classList.remove('answered'));
   document.getElementById('breakdown').open=false;
+  lastResult=null;
   updateProgress();
   document.getElementById('results').classList.remove('show');
   document.getElementById('assessment').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ---- language / theme ----
+// Applies LANG to all static UI strings, the question text, and (if shown) the results.
+function applyLang(){
+  for(const id in COPY){
+    const el=document.getElementById(id);
+    if(el) el.innerHTML=COPY[id][LANG];
+  }
+  document.querySelectorAll('.q').forEach((card,i)=>{
+    const qt=card.querySelector('.qtext');
+    if(qt) qt.textContent=qtext(i);
+  });
+  updateProgress();
+  if(lastResult) renderResults();
+}
+
+function setTheme(hannah){
+  LANG = hannah ? 'hannah' : 'norm';
+  document.body.classList.toggle('hannah',hannah);
+  const t=document.getElementById('themeToggle');
+  t.setAttribute('aria-pressed',hannah?'true':'false');
+  t.setAttribute('data-tip',hannah?'Normal Mode':'Hannah Mode');
+  localStorage.setItem('faa-lang',LANG);
+  applyLang();
+}
+
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  setTheme(!document.body.classList.contains('hannah'));
+});
+
+// Restore saved mode on load.
+setTheme(LANG==='hannah');
 </script>
 </body>
 </html>
